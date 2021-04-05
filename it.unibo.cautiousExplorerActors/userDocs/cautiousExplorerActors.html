@@ -1,0 +1,311 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+	 
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+    
+<head>
+   
+<title>CautiousExplorerActors</title></head>
+    
+<body>
+<div id="top">
+<h1>Lab ISS | the project cautiousExplorer with Actors<font size="5"></font> </h1>
+</div>  
+
+<div class="body"> 
+<h2>Introduction</h2>
+This case-study deals with the design and development of proactive/reactive software systems 
+based on the concept of Actor, as introduced in 
+<a href="../../it.unibo.supports/userDocs/wssupportAsActorJava.html" target="web">
+LabIss2021 | wshttp support with ActorBasicJava observers</a>.
+ 
+<h2>Requirements</h2>
+
+ 
+<div class="remark">
+Design and build a software system that allow the robot described in 
+<a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a>
+ to exibit the following behaviour:
+<ul>
+<li>the robot lives in a rectangular room, delimited by walls that includes one or more devices (e.g. sonar) able to detect the presence
+of obstacles, including the robot itself;</li>
+<li>the robot has a <ks>den</ks> for refuge, located in the position shown in the picture
+<center><img src="./img/cautiousExplorer.png" alt="cautiousExplorer" width="20%" ></center></li>
+<li>the robot works as an <i>explorer of the room</i>. Starting from its <ks>den</ks>,  the goal of the robot is to
+create a map of the room that records the position of the fixed obstacles. 
+The presence of mobile obstacles in the room is (at the moment) excluded;</li>
+<li>since the robot is <i>'cautious'</i>,  it  returns immediately to the <ks>den</ks> as soon as it finds an obstacle.
+It also stops for a while (e.g. 2 seconds), when it 'feels' that the sonar has detected its presence.
+</li>
+ 
+</ul>
+</div>
+
+ <h3>Delivery</h3>
+The customer requires to receive at <k>12 noon on April 6</k> a file named 
+<pre>
+cognome_nome_cea.pdf
+</pre>
+including a (synthetic) description of the project  (preceded by a proper analysis of the problem)
+based on components of type <a href="../../it.unibo.supports/userDocs/wssupportAsActorJava.html" target="web">ActorBasicJava</a>
+and a reference to a <i>first working prototype</i> (even with limited capabilities) of the system. 
+ 
+<h3>Meeting</h3>
+A SPRINT-review phase with the customer is planned (via Teams) at <k>5.15 pm on April 6</k>.
+
+<h2>Requirement analysis</h2>
+<p>The client clarified the following terms:</p>
+<ul>
+	<li><ks>robot</ks>: entity capable of moving and able to communicate through the network, see the following documentation <a href="VirtualRobot2021.html#commands" target="web"><ks>VirtualRobot2021.html</ks></a>. </li>
+	<li><ks>room</ks>: normal room delimited by walls that compose the intern of buildings.</li>
+	<li><ks>den</ks>: starting point; position also known by the robot</li>
+	<li><ks>device</ks>: piece of electronic equipment</li>
+	<li><ks>sonar</ks>: particular device that uses sound propagation to detect object presence</li>
+	<li><ks>detect</ks>: the sonar discover the presence of the robot and send a message as described in <a href="VirtualRobot2021.html#commands" target="web"><ks>VirtualRobot2021.html</ks></a></li>
+	<li><ks>feels</ks>: the robot has been detected by the sonar so it receives a message</li>
+	<li><ks>obstacle</ks>: any obstruction that blocks the passage of the robot, including walls</li>
+	<li><ks>map</ks>: representation of the room, showing the presence of obstacles </li>
+</ul>
+
+<h3>The main user Story (validated by the costumer)</h3>
+<p>As a user, I put the robot in the <ks>den</ks> as shown in the requirements picture (pointing south), then I activate the application <ks>cautiousExplorerActor</ks>. 
+The robot starts moving and it cannot be interrupted by any user-command. As soon as the robot hits an obstacle it returns to the den tracing back to his step.  
+After the application terminate a proper TestPlan should check the outcome. </p>
+
+
+<h2>Problem analysis</h2>
+
+<h3>Relevant aspects</h3>
+<ul> 
+	<li>The communication method imposed by the robot implies a distributed system composed by the client's robot and by our application that sends the commands to the robot.</li>
+	<li>The sonar implies that we use websocket to comunicate with the robot.</li>
+	<li>There is no abstraction gap between the programming language and the commands because there are already library to cover for it. Also, there is no abstraction gap between the communication methods because there are already the support needed. </li>
+	<li>The following resources could be usefully exploited to reduce the development time of a first prototype of the application:
+	<ol>
+		<li>The  <a href="../../it.unibo.virtualrobotclient/app/src/main/java/it/unibo/RobotWithActorJava/RobotMoveInfo.java" target="code">RobotMoveInfo.java</a> to create the map.</li>
+		<li>The it.unibo.supports library, see the documentation <a href="./others/wssupportAsActorJava.html" >wssupportAsActorJava.html</a></li>
+	</ol>
+	<li>The robot should explore the room using a pre-determined-pattern, for example at first we could make squares on the map and increasing the dimension each time.</li>
+	<li>The esiest way to return to the den after hitting an obstacle is that the robot traces back its step. 
+	So it is simple to bring the robot back and we are sure that it doesn't encounter other obstacles along the way.</li>
+	<li>The time expected to make the first working prototype is no more than 2 hours.</li>
+</ul>
+<h2>Test plans</h2> 
+	<p>Check the positions of the known obstacle in the resulting map.</p>
+<h2>Project</h2> 
+
+<h4>Schema</h4>
+<center><img src="./img/CautiousActorSchema.png" alt="cautiousExplorer" width="50%" ></center>
+<p><a href="../../it.unibo.virtualrobotclient/app/src/main/java/it/unibo/cautiousExplorerActor/CautiousExplorerActor.java" target="code">CautiousExplorerActor</a> implements ActorBasicJava.java component.</p>
+<h4>Finite state machine</h4>
+<p>CautiousExplorerActor is implemented as an Mealy Machine.
+The fsm is activated every time the handleInput receives the input message endmove sent by the <ks>IssWsHttpJavaSupport.java</ks></p>
+<p>In the state exploring the robot moves forming squares with length a number of step equals to <tt>sideLength</tt>. 
+When the robot hits an obstacle the fsm goes to the state obstacle. 
+In this state, the robot goes back in the den tracing back his step. To do so the program uses the information of the current side length, the number of times the robot turned left, and how many steps it took walking along the current side of the square.</p>
+<img src="./img/ceaFSM.png" alt="cautiousExplorer" width="20%" float="right" align="top"></img>
+ 
+
+
+<h2>Testing</h2> 
+ 
+
+<h2>Deployment</h2> 
+
+ 
+<h2>Maintenance</h2> 
+ 
+	      	
+<br/><br/> 	
+</div>  
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+By Emanuele Paci email: emanuele.paci@studio.unibo.it
+<img src="C:\Users\paci3\Desktop\magistrale\IngegneriaDelSoftwareM\docs\img\fototessera.png" alt="foto" width="15%" height="15%">
+</div> 
+</body>
+</html>

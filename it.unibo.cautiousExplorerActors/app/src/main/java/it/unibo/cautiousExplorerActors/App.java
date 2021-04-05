@@ -11,7 +11,7 @@ public class App {
 
         System.out.println("Avvio Cautious Explorer:");
 
-        RobotActorController rac = new RobotActorController("cautiosDemo");
+        CautiousExplorerActor rac = new CautiousExplorerActor("cautiosDemo");
 
         IssWsHttpJavaSupport support = IssWsHttpJavaSupport.createForWs("localhost:8091" );
 

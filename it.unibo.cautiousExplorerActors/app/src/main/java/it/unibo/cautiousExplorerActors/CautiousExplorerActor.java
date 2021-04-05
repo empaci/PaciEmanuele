@@ -1,11 +1,10 @@
 package it.unibo.cautiousExplorerActors;
 
-import it.unibo.interaction.IssCommActorSupport;
 import it.unibo.supports2021.ActorBasicJava;
 import it.unibo.supports2021.IssWsHttpJavaSupport;
 import org.json.JSONObject;
 
-public class RobotActorController extends ActorBasicJava {
+public class CautiousExplorerActor extends ActorBasicJava {
     final String forwardMsg = "{\"robotmove\":\"moveForward\", \"time\": 150}";
     final String backwardMsg = "{\"robotmove\":\"moveBackward\", \"time\": 150}";
     final String turnLeftMsg = "{\"robotmove\":\"turnLeft\", \"time\": 300}";
@@ -16,12 +15,12 @@ public class RobotActorController extends ActorBasicJava {
     private  IssWsHttpJavaSupport support = IssWsHttpJavaSupport.createForWs("localhost:8091" );
     private State curState       =  State.start ;
     private int stepNum          = 1;
-    private int radius           = 1;
-    private int radiousCounter    = 0;
+    private int sideLength = 1;
+    private int sidelengthCounter    = 0;
     private RobotMovesInfo moves = new RobotMovesInfo(true);
     
 
-    public RobotActorController(String name) {
+    public CautiousExplorerActor(String name) {
         super(name);
     }
 
@@ -38,25 +37,25 @@ public class RobotActorController extends ActorBasicJava {
                 stepNum=0;
                 turnRight();
                 doStep();
-                radiousCounter++;
+                sidelengthCounter++;
                 curState = State.exploring;
                 break;
             }
             case exploring: {
                 if (move.equals("moveForward") && endmove.equals("true")) {
-                    if (radiousCounter == radius) {
+                    if (sidelengthCounter == sideLength) {
                         turnRight();
                         stepNum++;
-                        radiousCounter=0;
+                        sidelengthCounter=0;
                     }
                     if (stepNum>=4) {
                         curState = State.start;
-                        radius++;
-                        radiousCounter = 0;
+                        sideLength++;
+                        sidelengthCounter = 0;
                         turnLeft();
                     } else {
                         doStep();
-                        radiousCounter++;
+                        sidelengthCounter++;
                     }
                 }
                 else if (move.equals("moveForward") && endmove.equals("false")) {
@@ -67,17 +66,17 @@ public class RobotActorController extends ActorBasicJava {
             }
             case obstacle :
                 //go back
-                System.out.println("Obstacle! stepNum: " + stepNum + " counter: " + radiousCounter + " radius: " + radius );
-                if (stepNum>0 && radiousCounter==0) {
+                System.out.println("Obstacle! stepNum: " + stepNum + " counter: " + sidelengthCounter + " radius: " + sideLength);
+                if (stepNum>0 && sidelengthCounter==0) {
                     turnLeft();
-                    radiousCounter = radius;
+                    sidelengthCounter = sideLength;
                     stepNum--;
                 }
-                if (radiousCounter > 0 ) {
+                if (sidelengthCounter > 0 ) {
                     goBack();
-                    radiousCounter--;
+                    sidelengthCounter--;
                 }
-                if (stepNum==0 && radiousCounter==0) {
+                if (stepNum==0 && sidelengthCounter==0) {
                     curState = State.end;
                     turnLeft();
                 }

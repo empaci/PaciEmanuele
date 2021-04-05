@@ -1,0 +1,463 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+	 
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+    
+<head>
+   
+<title>JavaActorSupport</title></head>
+    
+<body>
+<div id="top">
+<h1>LabIss2021 | wshttp support with ActorBasicJava observers<font size="5"></font> </h1>
+</div>  
+
+<div class="body"> 
+<h2>Introduction</h2>
+
+<h2>ActorBasicJava</h2>
+
+<table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:50%" >
+<a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><ks>ActorBasicJava.java</ks></a> :<br/>
+an abstract class that implements the concept of a message-driven entity that handles messages in FIFO order,
+by delegating the work to the abstract method <ks>handleInput</ks>.
+<pre>public abstract class <k>ActorBasicJava</k> extends Thread 
+   implements IJavaActor {...}
+</pre>
+
+ 
+<a href="../app/src/main/kotlin/it/unibo/interaction/IJavaActor.kt" target="code"><ks>IJavaActor.kt</ks></a> : <br/>
+defines the operations that each <tt>ActorBasicJava</tt> component must provide.
+<pre>
+package it.unibo.interaction
+interface <k>IJavaActor</k> : : IssActorObservable {
+    fun myname() : String
+    fun send(msg: String )
+}</pre>
+
+
+
+<a href="../app/src/main/kotlin/it/unibo/interaction/IssActorObservable.kt" target="code"><ks>IssActorObservable.kt</ks></a> :<br/>
+each <tt>ActorBasicJava</tt> component must be observable by other <tt>ActorBasicJava</tt> components
+<pre>
+package it.unibo.interaction
+interface <k>IssActorObservable</k> {
+    fun registerActor(obs: IJavaActor)
+    fun removeActor(obs: IJavaActor)
+}</pre>
+
+
+
+</td>
+
+<td>
+<center><img src="./img/ActorBasicJava.png" alt="ActorBasicJava" width="60%" ></center> 
+<br/>
+<center>Actor symbol: <img src="./img/ActorSymbol.png" alt="ActorSymbol" width="10%" ></center> 
+ <br/><br/>
+<ol>
+<li>Now, in our analysis and design phase, we can talk of two main types of components: <ks>objects</ks> (POJO) and <ks>actors</ks>.
+ <br/><br/></li>
+<li>An <a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><tt>ActorBasicJava</tt></a>
+has the capability to interact with other actors (known by reference) by using the following local operations:
+<pre><m>protected void <k>forward</k>(String msg, ActorBasicJava dest) { dest.send(msg); }
+protected void <k>request</k>(String msg, ActorBasicJava dest) { dest.send(msg); }
+protected void <k>reply</k>(String msg, ActorBasicJava dest) { dest.send(msg);   }</m>
+</pre>
+
+
+<!--
+<a href="../app/src/main/java/it/unibo/interaction/IssActorOperations.java" target="code"><ks>IssActorOperations</ks></a> set:-->
+ <br/><br/>
+ </li>
+<li>An <a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><tt>ActorBasicJava</tt></a>
+can be considered a sort of 'local-<a href="https://microservices.io/" target="web"><tt>microservice</tt></a>'
+ <br/><br/></li>
+</ol> 
+
+</td>
+</tr>
+
+
+<tr>
+<td style="width:50%" >
+<h3>Example: a producer-consumer system</h3>
+<a href="../app/src/main/java/it/unibo/supports2021/usage/prodCons/ActorProducer.java" target="code"><ks>ActorProducer.java</ks></a>:<br/>
+an actor that produces a sequence of items and sends then to a given consumer and to all the registered observers.
+<br/><br/>
+<a href="../app/src/main/java/it/unibo/supports2021/usage/prodCons/ActorConsumer.java" target="code"><ks>ActorConsumer.java</ks></a>: <br/>
+an actor that handles the items produced by the <tt>ActorProducer</tt>
+<br/><br/>
+<a href="../app/src/main/java/it/unibo/supports2021/usage/prodCons/ActorNaiveObserver.java" target="code"><ks>ActorNaiveObserver.java</ks></a>: <br/>
+an actor that simply shows the messages 
+<br/><br/> 
+<a href="../app/src/main/java/it/unibo/supports2021/usage/prodCons/MainProdConsActors.java" target="code"><ks>MainProdConsActors.java</ks></a>: <br/>
+the program that condfigures and starts the producer-consumer system
+<br/><br/>
+
+</td>
+<td>
+<center><img src="./img/prodConsSystem.png" alt="prodConsSystem" width="40%" ></center> 
+ 
+</td>
+</tr>
+
+
+ </tbody>
+</table>
+
+<h2>IssWsHttpJavaSupport</h2>
+<table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:50%" >
+
+ 
+<a href="../app/src/main/java/it/unibo/supports2021/IssWsHttpJavaSupport.java" target="code"><ks>IssWsHttpJavaSupport.java</ks></a>:<br/>
+a class that extends the <a href="https://square.github.io/okhttp/3.x/okhttp/okhttp3/WebSocketListener.html" target="web">
+WebSocketListener</a> of the library <a href="https://square.github.io/okhttp/" target="web">OkHttp3</a>.
+This class is able to send / receive messages via <tt>http/ws</tt> and is able to
+send information to  <a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><tt>ActorBasicJava.java</tt></a>
+actors registered as abservers.  
+<pre><m>public class <k>IssWsHttpJavaSupport</k> extends WebSocketListener
+    implements IssActorObservable, IssCommSupport, IssOperations {
+</m></pre>
+
+<a href="../app/src/main/kotlin/it/unibo/interaction/IssCommActorSupport.kt" target="code"><ks>IssCommActorSupport.kt</ks></a>:<br/>
+ 
+<pre>
+package it.unibo.interaction
+import it.unibo.supports2021.ActorBasicJava
+interface <k>IssCommActorSupport</k>  {
+    fun isOpen() : Boolean
+    fun close()
+}
+</pre>
+
+ <a href="../app/src/main/java/it/unibo/supports2021/usage/MainIssWsHttpJavaSupportUsage.java" target="code">
+ <ks>MainIssWsHttpJavaSupportUsage.java</ks></a>:<br/>
+shows a demo of the usage of the  <tt>IssWsHttpJavaSupport.java</tt>.
+</td>
+<td>
+<center><img src="./img/supportDemo.png" alt="supportDemo" width="100%" ></center> 
+
+ 
+
+</td>
+</tr>
+
+<tr>
+<td style="width:50%" >
+<h3>Example: the boundaryWalker (project <i>it.unibo.virtualrobotclient</i>)</h3> 
+ 
+<a href="../../it.unibo.virtualrobotclient/app/src/main/java/it/unibo/robotWithActorJava/MainRobotActorJava.java" target="code">
+MainRobotActorJava.java</a>:<br/>
+the <tt>boundaryWalker</tt> application as a system composed of 
+<a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><tt>ActorBasicJava.java</tt></a>
+components.
+<br/><br/>
+
+</td>
+<td>
+<center><img src="./img/BaoundaryWalkerWithActors.png" alt="BaoundaryWalkerWithActors" width="100%" ></center> 
+</td>
+</tr>
+
+
+<tr>
+<td style="width:50%" >
+<h3>The boundaryWalker as a <a href="fsm.html"><k>Finite State Machine</k></a></h3> 
+<a href="../../it.unibo.virtualrobotclient/app/src/main/java/it/unibo/robotWithActorJava/BoundaryWalkerActor.java" target="code">
+BoundaryWalkerActor.java</a>:<br/>
+the <tt>boundaryWalker</tt> application logic designed and implemented as a <i>Mealy Machine</i>.
+<br/><br/>
+<m>
+<ul>
+<li>The fsm is activated with an input each time the <ks>handleInput</ks> receives an input-message <tt>endmove</tt> 
+(sent by the <a href="../app/src/main/java/it/unibo/supports2021/IssWsHttpJavaSupport.java" target="code">
+<ks>IssWsHttpJavaSupport.java</ks></a>). </li>
+<li>The actions related to a state transition are performed when the specified input-message is received 
+and the conditions are true.</li>
+</ul>
+</m>
+
+</td>
+<td><h4>UML-like model sketch (not correct-not complete, but useful)</h4>
+<center><img src="./img/bwMealy.png" alt="bwMealy" width="30%" ></center> 
+
+<h4>UML-like model after coding (<ks>fsm</ks> in 
+<a href="../../it.unibo.virtualrobotclient/app/src/main/java/it/unibo/robotWithActorJava/BoundaryWalkerActor.java" target="code">
+BoundaryWalkerActor</a>)</h4>
+<center><img src="./img/bwMealyReviewed.png" alt="bwMealyReviewed" width="90%" ></center> 
+ 
+</td>
+</tr>
+
+<tr>
+<td style="width:50%" >
+<h3>The resumableBoundaryWalker as a <a href="fsm.html"><k>Finite State Machine</k></a></h3> 
+<a href="../../it.unibo.virtualrobotclient/app/src/main/java/it/unibo/resumablebwWithActor/ResumableBoundaryWalkerActor.java" target="code">
+ResumableBoundaryWalkerActor.java</a> 
+ 
+<br/><br/>
+<center><img src="./img/bwArch.png" alt="bwArch" width="90%" ></center> 
+ 
+
+
+</td>
+<td> 
+
+<h4>UML-like model after coding  </h4>
+<center><img src="./img/resumablebwMealy.png" alt="resumablebwMealy" width="90%" ></center> 
+<m>
+<ul>
+<li>The fsm is activated each time the <ks>handleInput</ks> receives the input-message <tt>endmove</tt> 
+(sent by the <a href="../app/src/main/java/it/unibo/supports2021/IssWsHttpJavaSupport.java" target="code">
+<ks>IssWsHttpJavaSupport.java</ks></a>)
+ or <tt>robotcmd</tt> 
+(sent by the <a href="../../it.unibo.virtualrobotclient/app/src/main/java/it/unibo/consolegui/ConsoleGuiActor.java" target="code">
+<ks>ConsoleGuiActor.java</ks></a>). </li>
+<li>A state transition with action <k>doStep</k> is performed only if the boolean variable <ks>tripStopped</ks> is <tt>false</tt>.</li>
+<li>The variable <ks>tripStopped</ks> is set to <tt>true</tt> when the user presses the <tt>STOP</tt> button.</li>
+<li>When the user presses the <tt>RESUME</tt> button, the <ks>handleInput</ks>  activates the fsm 
+(blocked in the state <em>walking</em> or in the state <em>obstacle</em>) with input <tt>resume</tt>. </li>
+
+</ul>
+</m> 
+</td>
+</tr>
+
+ </tbody>
+</table>
+
+
+<!--
+<a href="../app/src/main/kotlin/it/unibo/supports/IssWsHttpKotlinSupport.kt" target="code"><ks>IssWsHttpKotlinSupport.kt</ks></a>
+
+<h3>Java</h3>
+<a href="../app/src/main/java/it/unibo/supports2021/ActorBasicJava.java" target="code"><tt>ActorBasicJava.java</tt></a>
+<br/><br/>
+<a href="../app/src/main/java/it/unibo/supports2021/IssWsHttpJavaSupport.java" target="code"><ks>IssWsHttpJavaSupport.java</ks></a>
+<br/><br/>
+<a href="../app/src/main/java/it/unibo/supports2021/usage/ActorBasicJavaUsage.java" target="code"><tt>ActorBasicJavaUsage.java</tt></a>
+
+-->
+
+ 
+
+
+   <!--
+<ol>
+<li></li>
+<li></li>
+<li></li>
+</ol>
+<table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:50%" >
+ 
+
+</td>
+<td>
+</td>
+</tr>
+ </tbody>
+</table>
+-->
+	      	
+<br/><br/> 	
+</div>  
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:100%;text-align:center;font-size:small;color:white">
+By AN Unibo-DISI  
+</div>
+</body>
+</html>
